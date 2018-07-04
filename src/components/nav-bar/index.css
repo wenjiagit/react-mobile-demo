@@ -1,0 +1,32 @@
+.nav-bar-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    border-top: 1px solid #ccc;
+}
+
+.nav-bar-container a {
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.nav-bar-container a,
+.nav-bar-container a:hover,
+.nav-bar-container a:visited,
+.nav-bar-container a:active {
+    color: #999;
+}
+
+.nav-bar-container a:hover,
+.nav-bar-container a:active {
+    background: #ccc;
+}
+
+.nav-bar-container a.nav-bar-active {
+    background: green;
+    color: #fff;
+}

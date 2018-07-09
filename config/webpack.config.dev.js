@@ -13,6 +13,7 @@ const getClientEnvironment = require('./env');
 const paths = require('./paths');
 
 const RouteConfigGrabWebpackPlugin = require('sx-route-config-grab-webpack-plugin');
+const ModelGrabWebpackPlugin = require('sx-model-grab-webpack-plugin');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -223,6 +224,20 @@ module.exports = {
         ],
     },
     plugins: [
+        new ModelGrabWebpackPlugin({
+            paths: [
+                path.resolve(__dirname, '../src/models/**/*.js'),
+            ],
+            ignored: [
+                "**/index.js",
+                "**/all-models.js"
+            ],
+            output: path.resolve(__dirname, '../src/models/all-models.js'),
+            watch: true,
+            // template,
+            displayLog: false,
+        }),
+
         new RouteConfigGrabWebpackPlugin({
             mode: 'dir',
             // mode: 'variable',

@@ -13,7 +13,7 @@ export default class Home extends Component {
             .get('/test-ajax', null, {successTip: 'ajax OK'})
             .then(res => {
                 console.log(res);
-            })
+            });
     }
 
     render() {

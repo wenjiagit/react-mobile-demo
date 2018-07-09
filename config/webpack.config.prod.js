@@ -12,6 +12,9 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
+const RouteConfigGrabWebpackPlugin = require('sx-route-config-grab-webpack-plugin');
+const ModelGrabWebpackPlugin = require('sx-model-grab-webpack-plugin');
+
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -255,6 +258,34 @@ module.exports = {
         ],
     },
     plugins: [
+        new ModelGrabWebpackPlugin({
+            paths: [
+                path.resolve(__dirname, '../src/models/**/*.js'),
+            ],
+            ignored: [
+                "**/index.js",
+                "**/all-models.js"
+            ],
+            output: path.resolve(__dirname, '../src/models/all-models.js'),
+            watch: false,
+            // template,
+            displayLog: true,
+        }),
+
+        new RouteConfigGrabWebpackPlugin({
+            mode: 'dir',
+            // mode: 'variable',
+            codeSplitting: false,
+            paths: [
+                path.resolve(__dirname, '../src/pages/**/*.jsx'),
+            ],
+            pagePath: path.resolve(__dirname, '../src/pages'),
+            ignored: [],
+            output: path.resolve(__dirname, '../src/page-route.js'),
+            watch: false,
+            template: path.resolve(__dirname, '../src/page-route-template.ejs'),
+        }),
+
         // Makes some environment variables available in index.html.
         // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
         // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">

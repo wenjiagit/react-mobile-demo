@@ -7,7 +7,7 @@ import {Toast} from 'antd-mobile';
 export default class LoadingPage extends Component {
     constructor(props) {
         super(props);
-        Toast.loading('Loading...', 60 * 60);
+        Toast.loading('Loading...', 0);
     }
 
     componentWillUnmount() {

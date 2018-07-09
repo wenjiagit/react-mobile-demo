@@ -7,13 +7,14 @@ import Error404 from '../pages/error404';
 import LoadingPage from "../components/loading-page";
 import queryHoc from '../commons/query-hoc';
 import {ajaxHoc} from '../commons/ajax';
+import {connect} from '../models';
 
 const history = createBrowserHistory();
 
 const allRoutes = routes.map(item => {
     return {
         path: item.path,
-        component: queryHoc()(ajaxHoc()(ReactLoadable({loader: item.component, loading: LoadingPage}))),
+        component: queryHoc()(ajaxHoc()(connect()(ReactLoadable({loader: item.component, loading: LoadingPage})))),
     };
 });
 

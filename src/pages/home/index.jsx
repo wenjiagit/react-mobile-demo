@@ -4,11 +4,16 @@ import {Link} from 'react-router-dom';
 import NavBar from '../../components/nav-bar/index';
 import Carousel from '../../components/carousel/index'
 // import TabBar from "../components/tabBar";
-
+import './index.less';
 
 export default class Home extends Component {
     componentDidMount() {
         console.log(this.props);
+        this.props.ajax
+            .get('/test-ajax', null, {successTip: 'ajax OK'})
+            .then(res => {
+                console.log(res);
+            })
     }
 
     render() {
@@ -25,6 +30,9 @@ export default class Home extends Component {
                 <NavBar/>
                 {/*<TabBar/>*/}
                 <Button>OK</Button>
+                <Button>OK</Button>
+                <Button>OK</Button>
+                <div styleName="test">测试样式</div>
             </div>
         );
     }

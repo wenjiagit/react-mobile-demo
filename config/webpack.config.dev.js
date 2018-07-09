@@ -12,6 +12,8 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 
+const RouteConfigGrabWebpackPlugin = require('sx-route-config-grab-webpack-plugin');
+
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
 const publicPath = '/';
@@ -166,33 +168,14 @@ module.exports = {
                                     importLoaders: 1,
                                 },
                             },
-                            {
-                                loader: require.resolve('postcss-loader'),
-                                options: {
-                                    // Necessary for external CSS imports to work
-                                    // https://github.com/facebookincubator/create-react-app/issues/2677
-                                    ident: 'postcss',
-                                    plugins: () => [
-                                        require('postcss-flexbugs-fixes'),
-                                        autoprefixer({
-                                            browsers: [
-                                                '>1%',
-                                                'last 4 versions',
-                                                'Firefox ESR',
-                                                'not ie < 9', // React doesn't support IE8 anyway
-                                            ],
-                                            flexbox: 'no-2009',
-                                        }),
-                                        require('postcss-plugin-px2rem')({
-                                            rootValue:100
-                                        }),
-                                    ],
-                                },
-                            },
+                            // {
+                            //     loader: require.resolve('postcss-loader'),
+                            // },
                         ],
                     },
                     {
                         test: /\.less$/,
+                        include: paths.appSrc,
                         use: [
                             require.resolve('style-loader'),
                             {
@@ -209,26 +192,6 @@ module.exports = {
                             },
                             {
                                 loader: require.resolve('postcss-loader'),
-                                options: {
-                                    // Necessary for external CSS imports to work
-                                    // https://github.com/facebookincubator/create-react-app/issues/2677
-                                    ident: 'postcss',
-                                    plugins: () => [
-                                        require('postcss-flexbugs-fixes'),
-                                        autoprefixer({
-                                            browsers: [
-                                                '>1%',
-                                                'last 4 versions',
-                                                'Firefox ESR',
-                                                'not ie < 9', // React doesn't support IE8 anyway
-                                            ],
-                                            flexbox: 'no-2009',
-                                        }),
-                                        require('postcss-plugin-px2rem')({
-                                            rootValue:100
-                                        }),
-                                    ],
-                                },
                             },
                             {
                                 loader: require.resolve('less-loader'),
@@ -260,6 +223,19 @@ module.exports = {
         ],
     },
     plugins: [
+        new RouteConfigGrabWebpackPlugin({
+            mode: 'dir',
+            // mode: 'variable',
+            codeSplitting: false,
+            paths: [
+                path.resolve(__dirname, '../src/pages/**/*.jsx'),
+            ],
+            pagePath: path.resolve(__dirname, '../src/pages'),
+            ignored: [],
+            output: path.resolve(__dirname, '../src/page-route.js'),
+            watch: true,
+            template: path.resolve(__dirname, '../src/page-route-template.ejs'),
+        }),
         // Makes some environment variables available in index.html.
         // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
         // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">

@@ -1,0 +1,6 @@
+export default [<% for(let i = 0; i< result.length; i++){ %>
+    {
+        path: '<%= result[i].routePath%>',
+        component: () => import('<%= result[i].path %>'),
+    },<% } %>
+];

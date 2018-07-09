@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {TabBar} from 'antd-mobile';
 import {withRouter} from 'react-router-dom'
-import './index.css'
+import './index.less'
 
 @withRouter
 

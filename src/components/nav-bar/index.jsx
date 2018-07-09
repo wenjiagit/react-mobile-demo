@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import './index.css';
+import './index.less';
 
 export default class NavBar extends Component {
 
@@ -23,7 +23,7 @@ export default class NavBar extends Component {
                     style={{width: `${100 / items.length}%`}}
                     key={item.path}
                     to={item.path}
-                    className={className}
+                    styleName={className}
                 >{item.text}</Link>
             );
         });
@@ -31,7 +31,7 @@ export default class NavBar extends Component {
 
     render() {
         return (
-            <div className="nav-bar-container">
+            <div styleName="nav-bar-container">
                 {this.renderItems()}
             </div>
         );

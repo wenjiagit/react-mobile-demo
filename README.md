@@ -32,8 +32,27 @@ css/less/js/img/相关配置
 
 开发与生产有不同的配置
 
+## 开发时与后端联调接口
+
+在package.json中编写proxy，指向后端接口
+```
+"proxy": {
+    "/api": {
+        "target": "http://localhost:5000"
+    }
+}
+```
+
 ## antd-mobile
 UI库使用的是[antd-mobile](https://mobile.ant.design/index-cn)
+
+## 移动端适配解决方案
+参考[这篇文章](https://www.w3cplus.com/mobile/vw-layout-in-vue.html)
+
+第三方库，antd-mobile不应用适配方案
+
+## 路由
+使用[sx-route-config-grab-webpack-plugin](http://172.16.132.188:4873/-/iframe-readme/sx-route-config-grab-webpack-plugin) 插件，基于/src/pages目录结构自动生成对应的路由配置文件 ./src/page-route.js
 
 ## 库/组件整理
 - [ ] url query string 高阶组件
@@ -55,4 +74,6 @@ UI库使用的是[antd-mobile](https://mobile.ant.design/index-cn)
 - [ ] ajax
 - [ ] 前后端分离，代理
 - [ ] nginx配置
+- [ ] 1px border 的问题
+- [ ] 第三方库，比如 ant-mobile 是否使用适配方案？
 

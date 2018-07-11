@@ -41,7 +41,7 @@ sxAjax.instance.interceptors.request.use(cfg => {
         }
     });
 
-    if (method === 'post' || method === 'put') {
+    if (!headers['Content-Type'] && (method === 'post' || method === 'put')) {
         headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         cfg.data = stringify(data);
     }

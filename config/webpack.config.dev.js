@@ -226,6 +226,8 @@ module.exports = {
         new ModelGrabWebpackPlugin({
             paths: [
                 path.resolve(__dirname, '../src/models/**/*.js'),
+                path.resolve(__dirname, '../src/pages/**/model.js'),
+                path.resolve(__dirname, '../src/pages/**/*.model.js'),
             ],
             ignored: [
                 "**/index.js",

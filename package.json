@@ -61,7 +61,7 @@
     "resolve": "1.6.0",
     "sw-precache-webpack-plugin": "0.11.4",
     "sx-ajax": "^1.0.4",
-    "sx-model-grab-webpack-plugin": "^1.0.3",
+    "sx-model-grab-webpack-plugin": "^1.0.5",
     "sx-redux": "^1.0.2",
     "sx-route-config-grab-webpack-plugin": "^1.0.3",
     "sx-utils": "^1.0.5",

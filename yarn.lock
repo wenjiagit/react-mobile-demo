@@ -8140,9 +8140,9 @@ sx-grab-files@^1.0.0:
     chokidar "^2.0.4"
     globby "^8.0.1"
 
-sx-model-grab-webpack-plugin@^1.0.3:
-  version "1.0.3"
-  resolved "http://172.16.132.188:4873/sx-model-grab-webpack-plugin/-/sx-model-grab-webpack-plugin-1.0.3.tgz#fd948bde799af1536442aa483692a6d375f233fb"
+sx-model-grab-webpack-plugin@^1.0.5:
+  version "1.0.5"
+  resolved "http://172.16.132.188:4873/sx-model-grab-webpack-plugin/-/sx-model-grab-webpack-plugin-1.0.5.tgz#ebb3a7ba44d9f1d2562eb4dd3e21486ca843957c"
   dependencies:
     ejs "^2.6.1"
     sx-grab-files "^1.0.0"

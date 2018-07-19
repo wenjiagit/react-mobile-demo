@@ -109,32 +109,43 @@ export default class AsyncCascadePicker extends Component {
     };
 
     // componentWillReceiveProps 有可能会被频繁调用，异步返回时顺序无法保证，通过一个哨兵变量 count，确保使用最后一次异步
-    count = 0;
+    rpCount = 0;
 
     componentWillReceiveProps(nextProps) {
         if ('value' in nextProps) {
             let {value: nextValue} = nextProps;
+            let {value: prevValue} = this.props;
 
             if (!nextValue) nextValue = [];
+            if (!prevValue) prevValue = [];
 
-            this.count = this.count + 1;
-            const n = this.count;
+            if (nextValue.join('') !== prevValue.join('')) {
+                this.rpCount = this.rpCount + 1;
+                const n = this.rpCount;
 
-            // 需要根据nextValue获取异步数据，这里不能简单的 this.setState({value: nextValue});
-            this.getAsyncResult(nextValue).then(({value, label, item, dataSource}) => {
-                if (n < this.count) return; // 由于闭包，n会保持当时调用componentWillReceiveProps设置的值
+                // 需要根据nextValue获取异步数据，这里不能简单的 this.setState({value: nextValue});
+                this.getAsyncResult(nextValue).then(({value, label, item, dataSource}) => {
+                    if (n < this.rpCount) return; // 由于闭包，n会保持当时调用componentWillReceiveProps设置的值
 
-                this.setState({value, label, item, dataSource});
-            });
+                    this.setState({value, label, item, dataSource});
+                });
+            }
         }
     }
 
+    pcCount = 0;
     handlePickerChange = (value) => {
         const {onPickerChange} = this.props;
 
         if (onPickerChange) onPickerChange(value);
 
-        this.getAsyncResult(value).then(({value, label, item, dataSource}) => this.setState({value, label, item, dataSource}));
+        this.pcCount = this.pcCount + 1;
+        const n = this.pcCount;
+
+        this.getAsyncResult(value).then(({value, label, item, dataSource}) => {
+            if (n < this.pcCount) return;
+            this.setState({value, label, item, dataSource});
+        });
     };
 
     getAsyncResult(value) {

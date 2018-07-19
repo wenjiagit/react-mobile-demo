@@ -147,7 +147,10 @@
   },
   "proxy": {
     "/api": {
-      "target": "http://localhost:5000"
+      "target": "http://172.18.40.134:8080",
+      "pathRewrite": {
+        "^/api": ""
+      }
     }
   },
   "browserslist": [

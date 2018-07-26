@@ -86,7 +86,7 @@ function getAsyncDataSourceAndValue(value = [], dataSource = [], promises, useCa
 export default class AsyncCascadePicker extends Component {
     constructor(props) {
         super(props);
-        const {value,} = props;
+        const {value = []} = props;
 
         this.state.value = value;
         this.getAsyncResult(value).then(({item, dataSource}) => this.setState({item, dataSource}));
@@ -99,7 +99,6 @@ export default class AsyncCascadePicker extends Component {
 
     static defaultProps = {
         cols: 3,
-        value: [],
     };
 
     state = {
@@ -169,7 +168,7 @@ export default class AsyncCascadePicker extends Component {
 
     handleDismiss = () => {
         // 点击取消，恢复数据
-        const {onDismiss, value} = this.props;
+        const {onDismiss, value = []} = this.props;
         if (onDismiss) onDismiss();
         this.setState({value});
     };

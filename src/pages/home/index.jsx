@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, List} from 'antd-mobile';
+import {createForm} from 'rc-form';
 import {Link} from 'react-router-dom';
 import NavBar from '../../components/nav-bar/index';
 import Carousel from '../../components/carousel/index';
@@ -9,6 +10,7 @@ import './index.less';
 
 const Item = List.Item;
 
+@createForm()
 export default class Home extends Component {
     state = {
         value: [],
@@ -27,8 +29,20 @@ export default class Home extends Component {
         }, 1000);
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log(values);
+            } else {
+                console.log(err);
+            }
+        });
+    };
+
     render() {
         console.log('render provValue label', this.state.provValue, this.state.label);
+        const {getFieldDecorator} = this.props.form;
 
         return (
             <div>
@@ -37,60 +51,62 @@ export default class Home extends Component {
                 }/>
 
                 <List renderHeader={() => 'Basic Style'} className="my-list">
-                    <ProvinceCityArea
-                        value={this.state.value}
-                        onChange={(value, label) => {
-                            console.log('onChange:', value, label);
-                            this.setState({value, label});
-                        }}
-                        cols={3}
-                        loadData={[
-                            () => {
-                                return Promise.resolve([
-                                    {value: '1', label: '1北京'},
-                                    {value: '2', label: '2上海'},
-                                    {value: '3', label: '3广州'},
-                                    {value: '4', label: '4深圳'},
-                                ]);
-                            },
-                            (prov, provItem) => {
-                                console.log(prov, provItem);
-                                return Promise.resolve([
-                                    {value: prov + '1', label: prov + '1市'},
-                                    {value: prov + '2', label: prov + '2市'},
-                                    {value: prov + '3', label: prov + '3市'},
-                                    {value: prov + '4', label: prov + '4市'},
-                                ]);
-                            },
-                            (city) => {
-                                return Promise.resolve([
-                                    {value: city + '1', label: city + '1区'},
-                                    {value: city + '2', label: city + '2区'},
-                                    {value: city + '3', label: city + '3区'},
-                                    {value: city + '4', label: city + '4区'},
-                                ]);
-                            },
-                            (area) => {
-                                return Promise.resolve([
-                                    {value: area + '1', label: area + '1街'},
-                                    {value: area + '2', label: area + '2街'},
-                                    {value: area + '3', label: area + '3街'},
-                                    {value: area + '4', label: area + '4街'},
-                                ]);
-                            },
-                            (town) => {
-                                return Promise.resolve([
-                                    {value: town + '1', label: town + '1房'},
-                                    {value: town + '2', label: town + '2房'},
-                                    {value: town + '3', label: town + '3房'},
-                                    {value: town + '4', label: town + '4房'},
-                                ]);
-                            }
+                    {getFieldDecorator('city', {
+                        rules: [
+                            {required: true, message: '请选择城市'}
+                        ],
+                    })(
+                        <ProvinceCityArea
+                            cols={3}
+                            loadData={[
+                                () => {
+                                    return Promise.resolve([
+                                        {value: '1', label: '1北京'},
+                                        {value: '2', label: '2上海'},
+                                        {value: '3', label: '3广州'},
+                                        {value: '4', label: '4深圳'},
+                                    ]);
+                                },
+                                (prov, provItem) => {
+                                    console.log(prov, provItem);
+                                    return Promise.resolve([
+                                        {value: prov + '1', label: prov + '1市'},
+                                        {value: prov + '2', label: prov + '2市'},
+                                        {value: prov + '3', label: prov + '3市'},
+                                        {value: prov + '4', label: prov + '4市'},
+                                    ]);
+                                },
+                                (city) => {
+                                    return Promise.resolve([
+                                        {value: city + '1', label: city + '1区'},
+                                        {value: city + '2', label: city + '2区'},
+                                        {value: city + '3', label: city + '3区'},
+                                        {value: city + '4', label: city + '4区'},
+                                    ]);
+                                },
+                                (area) => {
+                                    return Promise.resolve([
+                                        {value: area + '1', label: area + '1街'},
+                                        {value: area + '2', label: area + '2街'},
+                                        {value: area + '3', label: area + '3街'},
+                                        {value: area + '4', label: area + '4街'},
+                                    ]);
+                                },
+                                (town) => {
+                                    return Promise.resolve([
+                                        {value: town + '1', label: town + '1房'},
+                                        {value: town + '2', label: town + '2房'},
+                                        {value: town + '3', label: town + '3房'},
+                                        {value: town + '4', label: town + '4房'},
+                                    ]);
+                                }
 
-                        ]}
-                    >
-                        <Item>Title</Item>
-                    </ProvinceCityArea>
+                            ]}
+                        >
+                            <Item>Title</Item>
+                        </ProvinceCityArea>
+                    )}
+
 
                     <ProvinceCityArea
                         title="选择省市"
@@ -118,7 +134,9 @@ export default class Home extends Component {
                             居住地址{this.state.provValue}
                         </List.Item>
                     </ProvinceCityArea>
-
+                    <Button
+                        onClick={this.handleSubmit}
+                    >提交</Button>
                 </List>
 
 

@@ -15,6 +15,7 @@ export default class Home extends Component {
     state = {
         value: [],
         label: [],
+        count: 0,
     };
 
     componentDidMount() {
@@ -55,6 +56,9 @@ export default class Home extends Component {
                         rules: [
                             {required: true, message: '请选择城市'}
                         ],
+                        onChange: (values, labels) => {
+                            console.log(values, labels);
+                        },
                     })(
                         <ProvinceCityArea
                             cols={3}
@@ -146,7 +150,8 @@ export default class Home extends Component {
 
                 <NavBar/>
                 {/*<TabBar/>*/}
-                <Button>OK</Button>
+                {this.state.count}
+                <Button onClick={() => this.setState({count: this.state.count + 1})}>OK</Button>
                 <Button>OK</Button>
                 <Button>OK</Button>
                 <div styleName="test">测试样式</div>

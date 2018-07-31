@@ -168,6 +168,7 @@ module.exports = {
                                     importLoaders: 1,
                                 },
                             },
+                            // 这个开启之后 第三方库 比如 antd mobile 会应用上postcss，会把 px 转为 vw
                             // {
                             //     loader: require.resolve('postcss-loader'),
                             // },

@@ -13,7 +13,7 @@ import {Picker} from 'antd-mobile';
  * @param useCache boolean 是否使用缓存
  * @return {value, label, item, dataSource}
  */
-function getAsyncDataSourceAndValue(value = [], dataSource = [], promises, useCache) {
+export function getAsyncData(value = [], dataSource = [], promises, useCache) {
     return new Promise((resolve, reject) => {
         if (!promises || !promises.length) return resolve(value, dataSource);
         const allPromises = [...promises];
@@ -152,7 +152,7 @@ export default class AsyncCascadePicker extends Component {
         const {dataSource} = this.state;
         const promises = loadData.slice(0, cols);
 
-        return getAsyncDataSourceAndValue(value, dataSource, promises, true);
+        return getAsyncData(value, dataSource, promises, true);
     }
 
     handleChange = () => {
